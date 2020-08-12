@@ -81,8 +81,8 @@ public class CounterServiceImpl implements CounterService {
 		
 		Map<String, Long> res = searchStringWrapper.getSearchText().stream()
 				.collect(Collectors.toMap(Function.identity(), w -> (long)Collections.frequency(wholeWordsList, w)));
-		List<Map<String, Long>> list = new ArrayList<>();
-		list.add(res);
+		List<Entry<String, Long>> list = new ArrayList<>();
+		list.addAll(res.entrySet());
 		
 		SearchResponseWrapper resp = new SearchResponseWrapper();
 		resp.setCounts(list);

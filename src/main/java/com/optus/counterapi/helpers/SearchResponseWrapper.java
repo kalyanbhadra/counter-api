@@ -1,16 +1,16 @@
 package com.optus.counterapi.helpers;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 public class SearchResponseWrapper {
-	private List<Map<String, Long>> counts;
+	private List<Entry<String, Long>> counts;
 
-	public List<Map<String, Long>> getCounts() {
+	public List<Entry<String, Long>> getCounts() {
 		return counts;
 	}
 
-	public void setCounts(List<Map<String, Long>> counts) {
+	public void setCounts(List<Entry<String, Long>> counts) {
 		this.counts = counts;
 	}
 }

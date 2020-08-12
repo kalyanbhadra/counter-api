@@ -72,6 +72,5 @@ public class CounterControllerTest {
 			    JsonNode root = objectMapper.readTree(responseEntityStr.getBody());
 			    assertThat(responseEntityStr.getBody()).isNotNull();
 			    assertThat(root.asText()).isNotNull();
-			    //assertThat(root.toString().equals("{\"counts\":[{\"Sed\":0,\"Duis\":2}]}"));
 	}
 }

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,11 +62,12 @@ public class CounterServiceTest {
     	
     	assertThat(res).isNotNull();
     	assertThat(res.getCounts()).isInstanceOf(List.class);
+        	
+    	assertThat(res.getCounts()).isNotNull();
+    	assertThat(res.getCounts().size()).isEqualTo(3);
     	
-    	Map<String, Long> map = res.getCounts().get(0);
+    	Map<String, Long> map = res.getCounts().stream().collect(Collectors.toMap(e-> e.getKey(), e-> e.getValue()));
     	
-    	assertThat(map).isNotNull();
-    	assertThat(map.size()).isEqualTo(3);
     	assertThat(map.get("Sed")).isEqualTo(1L);
     	assertThat(map.get("Duis")).isEqualTo(2L);
     	assertThat(map.get("Suis")).isEqualTo(0L);
@@ -121,7 +123,7 @@ public class CounterServiceTest {
     	assertThat(res).isNotNull();
     	assertThat(res.getCounts()).isInstanceOf(List.class);
     	
-    	Map<String, Long> map = res.getCounts().get(0);
+    	Map<String, Long> map = res.getCounts().stream().collect(Collectors.toMap(e-> e.getKey(), e-> e.getValue()));
     	
     	assertThat(map).isNotNull();
     	assertThat(map.size()).isEqualTo(3);
