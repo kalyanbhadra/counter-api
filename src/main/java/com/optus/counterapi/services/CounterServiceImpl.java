@@ -13,6 +13,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ import com.optus.counterapi.helpers.TopCountResultWrapper;
 @Service
 public class CounterServiceImpl implements CounterService {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(CounterServiceImpl.class);
+	
 	@Autowired
 	TextService textService;
 
@@ -43,6 +47,7 @@ public class CounterServiceImpl implements CounterService {
 	 */
 	@Override
 	public List<TopCountResultWrapper> getTopCounts(int top) {
+		LOGGER.info("Getting frequencies of top " + top + " words.");
 		Map<String, Long> wordOccurrence = textService.getWordOccurrenceMap();
 		
 		// Sort by the more popular number
@@ -73,6 +78,8 @@ public class CounterServiceImpl implements CounterService {
 	 * @return List of words and their counts
 	 */
 	private SearchResponseWrapper buildResponse(SearchRequestWrapper searchStringWrapper) {
+		
+		LOGGER.info("Getting frequencies of words supplied.");
 		
 		List<String> wholeWordsList = Stream.of(textService.getSourceText())
 				.map(w -> w.split("\\s+"))

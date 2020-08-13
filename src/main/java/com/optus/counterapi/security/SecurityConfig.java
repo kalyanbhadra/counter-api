@@ -1,7 +1,7 @@
 package com.optus.counterapi.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +17,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Value("${security.username}")
+    private String userName;
+
+    @Value("${security.password}")
+    private String password;
 
 	@Autowired
 	private CustomBasicAuthenticationEntryPoint authEntryPoint;
@@ -43,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("optus").password("{noop}candidates")
+                .withUser(userName).password("{noop}" + password)
                 .authorities("ROLE_USER");
     }
 }

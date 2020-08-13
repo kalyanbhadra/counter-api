@@ -30,7 +30,6 @@ public class TextServiceImpl implements TextService {
 	private Resource resource;
 	
 	private Map<String, Long> wordOccurrenceMap;
-	
 	private String sourceText;
 	
 	public String getSourceText(){
@@ -62,6 +61,9 @@ public class TextServiceImpl implements TextService {
 		}
 	}
 	
+	/**
+	 * This method reads a text file form application classpath and return the content as a String.
+	 */
 	public String getTextFromFile() {
 		StringBuffer sourceText = new StringBuffer();
 

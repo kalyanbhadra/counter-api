@@ -1,7 +1,9 @@
 This is Assignment project for Optus.
 Spring boot restful APIs with spring security, JUnit and Swagger.
 
-Swagger UI: http://localhost:8080/swagger-ui.html
+Swagger UI can be referred to check the API documentation: 
+http://localhost:8080/swagger-ui.html
+
 
 Endpoints are:
 curl http://localhost:8080/counter-api/top/20 -H"Authorization: Basic b3B0dXM6Y2FuZGlkYXRlcw==" -X GET -H"Accept: text/csv"

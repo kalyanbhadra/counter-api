@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -40,13 +41,19 @@ public class CounterControllerTest {
 	
 	@Autowired
 	private TestRestTemplate restTemplate;
+	
+	@Value("${security.username}")
+    private String userName;
+
+    @Value("${security.password}")
+    private String password;
 
 	@BeforeTestClass
 	public void setUp() throws Exception {
 	}
 
 	@Test
-	public void contexLoads() throws Exception {
+	public void contextLoads() throws Exception {
 		assertThat(controller).isNotNull();
 	}
 	
@@ -54,8 +61,8 @@ public class CounterControllerTest {
 	public void testTopCountApi() throws JsonProcessingException, Exception{
 		
 		ResponseEntity<String> responseEntityStr = restTemplate
-				.withBasicAuth("optus", "candidates")
-			     .postForEntity("http://localhost:" + port + "/counter-api/top/3", null, String.class);
+				.withBasicAuth(userName, password)
+			    .postForEntity("http://localhost:" + port + "/counter-api/top/3", null, String.class);
 			    assertThat(responseEntityStr.getBody()).isNotNull();
 	}
 	
@@ -67,8 +74,8 @@ public class CounterControllerTest {
 		s.getSearchText().add("Duis");
 		
 		ResponseEntity<String> responseEntityStr = restTemplate
-				.withBasicAuth("optus", "candidates")
-			     .postForEntity("http://localhost:" + port + "/counter-api/search", s, String.class);
+				.withBasicAuth(userName, password)
+			    .postForEntity("http://localhost:" + port + "/counter-api/search", s, String.class);
 			    JsonNode root = objectMapper.readTree(responseEntityStr.getBody());
 			    assertThat(responseEntityStr.getBody()).isNotNull();
 			    assertThat(root.asText()).isNotNull();
